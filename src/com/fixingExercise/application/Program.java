@@ -11,6 +11,7 @@ import java.util.Locale;
 import java.util.Scanner;
 
 import com.fixingExercise.model.entities.Account;
+import com.fixingExercise.model.exceptions.BusinessException;
 
 public class Program {
 	public static void main(String[] args) {
@@ -39,13 +40,14 @@ public class Program {
 			System.out.print("Informe uma quantidade para saque: R$ ");
 			double amount = sc.nextDouble();
 			
-			String error = account.validateWithdraw(amount);
-			if (error != null) {
-				System.out.println(error);
-			}
-			else {
+			System.out.println();
+			
+			try {
 				account.withdraw(amount);
 				System.out.printf("Novo saldo: R$ %.2f", account.getBalance());
+			}
+			catch(BusinessException e) {
+				System.out.println(e.getMessage());
 			}
 			
 			sc.close();
