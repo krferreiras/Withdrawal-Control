@@ -59,4 +59,14 @@ public class Account {
 		this.balance -= amount;
 	}
 	
+	public String validateWithdraw (Double amount) {
+		if(amount > getWithdrawLimit()) {
+			return "Erro de saque: A quantia excede o limite de saque.";
+		}
+		if (amount > getBalance()){
+			return "Erro de saque: Saldo insuficiente.";
+		}
+		return null;
+	}
+	
 }

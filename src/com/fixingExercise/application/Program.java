@@ -5,7 +5,7 @@ package com.fixingExercise.application;
 *	saque da conta.
 */
 
-//	Solução ruim usando  lógica de validação no programa principal, não delegada à reserva.
+//	Solução "Gambiarra" usando método que retorna String.
 
 import java.util.Locale;
 import java.util.Scanner;
@@ -39,11 +39,11 @@ public class Program {
 			System.out.print("Informe uma quantidade para saque: R$ ");
 			double amount = sc.nextDouble();
 			
-			if(amount > account.getWithdrawLimit()) {
-				System.out.println("Erro de saque: A quantia excede o limite de saque.");
-			}else if (amount > account.getBalance()){
-				System.out.println("Erro de saque: Saldo insuficiente.");
-			}else {
+			String error = account.validateWithdraw(amount);
+			if (error != null) {
+				System.out.println(error);
+			}
+			else {
 				account.withdraw(amount);
 				System.out.printf("Novo saldo: R$ %.2f", account.getBalance());
 			}
